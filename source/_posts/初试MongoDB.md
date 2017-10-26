@@ -1,7 +1,7 @@
 ---
 title: 初试MongoDB
 date: 2017-04-25 22:40:08
-tags: node mongo
+tags: node 数据库
 ---
 
 ## [](#mongodb-简介 "mongodb 简介")mongodb 简介
