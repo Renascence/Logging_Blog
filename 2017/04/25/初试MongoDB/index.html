@@ -1,0 +1,751 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png?v=5.1.3">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.3" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="node 数据库," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="mongodb 简介  MongoDB 是由C++语言编写的，是一个基于分布式文件存储的开源数据库系统。  之前使用mysql比较多，mysql的某些术语在mongodb中有另外一个术语与之对应。    SQL术语/概念 MongoDB术语/概念 解释/说明      database database 数据库    table collection 数据库表/集合   row document">
+<meta name="keywords" content="node 数据库">
+<meta property="og:type" content="article">
+<meta property="og:title" content="初试MongoDB">
+<meta property="og:url" content="http://yoursite.com/2017/04/25/初试MongoDB/index.html">
+<meta property="og:site_name" content="Logging的博客">
+<meta property="og:description" content="mongodb 简介  MongoDB 是由C++语言编写的，是一个基于分布式文件存储的开源数据库系统。  之前使用mysql比较多，mysql的某些术语在mongodb中有另外一个术语与之对应。    SQL术语/概念 MongoDB术语/概念 解释/说明      database database 数据库    table collection 数据库表/集合   row document">
+<meta property="og:updated_time" content="2017-10-27T02:39:57.574Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="初试MongoDB">
+<meta name="twitter:description" content="mongodb 简介  MongoDB 是由C++语言编写的，是一个基于分布式文件存储的开源数据库系统。  之前使用mysql比较多，mysql的某些术语在mongodb中有另外一个术语与之对应。    SQL术语/概念 MongoDB术语/概念 解释/说明      database database 数据库    table collection 数据库表/集合   row document">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.3',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2017/04/25/初试MongoDB/"/>
+
+
+
+
+
+  <title>初试MongoDB | Logging的博客</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Logging的博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">https://github.com/Renascence</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Startseite
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archiv
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/04/25/初试MongoDB/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Logging">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Logging的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">初试MongoDB</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Veröffentlicht am</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-04-25T22:40:08+08:00">
+                2017-04-25
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="mongodb-简介"><a href="#mongodb-简介" class="headerlink" title="mongodb 简介"></a><a href="#mongodb-简介" title="mongodb 简介"></a>mongodb 简介</h2><p>  MongoDB 是由C++语言编写的，是一个基于分布式文件存储的开源数据库系统。<br>  之前使用mysql比较多，mysql的某些术语在mongodb中有另外一个术语与之对应。</p>
+<table>
+<thead>
+<tr>
+<th>SQL术语/概念</th>
+<th>MongoDB术语/概念</th>
+<th>解释/说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td> database</td>
+<td>database</td>
+<td>数据库</td>
+</tr>
+<tr>
+<td> table</td>
+<td>collection</td>
+<td>数据库表/集合</td>
+</tr>
+<tr>
+<td>row</td>
+<td>document</td>
+<td>数据记录行/文档</td>
+</tr>
+<tr>
+<td>column</td>
+<td>field</td>
+<td>数据字段/域</td>
+</tr>
+<tr>
+<td>index</td>
+<td>index</td>
+<td>索引</td>
+</tr>
+<tr>
+<td>table joins</td>
+<td>表连接,MongoDB不支持</td>
+<td>-</td>
+</tr>
+<tr>
+<td>primary key</td>
+<td>primary key</td>
+<td>主键,MongoDB自动将_id字段设置为主键</td>
+</tr>
+</tbody>
+</table>
+<h2 id="mongodb-安装"><a href="#mongodb-安装" class="headerlink" title="mongodb 安装"></a><a href="#mongodb-安装" title="mongodb 安装"></a>mongodb 安装</h2><p>操作系统：ubuntu 16.04</p>
+<ol>
+<li><p>导入包管理系器使用的公钥：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 0C49F3730359A14518585931BC711F9BA15703C6</div></pre></td></tr></table></figure>
+</li>
+<li><p>为mongodb创建一个列表：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">echo &quot;deb [ arch=amd64,arm64 ] http://repo.mongodb.org/apt/ubuntu xenial/mongodb-org/3.4 multiverse&quot; | sudo tee/etc/apt/sources.list.d/mongodb-org-3.4.list</div></pre></td></tr></table></figure>
+</li>
+<li><p>更新包管理区的软件列表：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo apt-get update</div></pre></td></tr></table></figure>
+</li>
+<li><p>mongodb 安装：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo apt-get install -y mongodb-org</div></pre></td></tr></table></figure>
+</li>
+</ol>
+<h2 id="mongodb-服务控制"><a href="#mongodb-服务控制" class="headerlink" title="mongodb 服务控制"></a><a href="#mongodb-服务控制" title="mongodb 服务控制"></a>mongodb 服务控制</h2><ol>
+<li><p>启动：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo service mongod start</div></pre></td></tr></table></figure>
+</li>
+<li><p>查看mongodb 状态：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo service mongod status</div></pre></td></tr></table></figure>
+</li>
+<li><p>停止：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo service mongod stop</div></pre></td></tr></table></figure>
+</li>
+<li><p>重启：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo service mongod restart</div></pre></td></tr></table></figure>
+</li>
+</ol>
+<h2 id="mongodb-常用操作"><a href="#mongodb-常用操作" class="headerlink" title="mongodb 常用操作"></a><a href="#mongodb-常用操作" title="mongodb 常用操作"></a>mongodb 常用操作</h2><ol>
+<li><p>新建mongodb存储的文件路径</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">mkdir -p /data/db</div></pre></td></tr></table></figure>
+<p>/data/db 是 MongoDB 默认的启动的数据库路径(–dbpath),安装过程中不会自动创建，需要手动创建。</p>
+</li>
+<li><p>执行 <strong>mongo</strong> 可以进入mongodb shell</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">use DATABASE_NAME</div></pre></td></tr></table></figure>
+<p>如果数据库不存在，则创建数据库，否则切换到指定数据库。</p>
+</li>
+<li><p>如果需要删除数据库，在use 该数据库后执行</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">db.dropDatabase()</div></pre></td></tr></table></figure>
+<p>然后通过<strong>show dbs</strong>查看是否删除成功</p>
+</li>
+</ol>
+<h2 id="在nodejs中使用mongodb"><a href="#在nodejs中使用mongodb" class="headerlink" title="在nodejs中使用mongodb"></a><a href="#在nodejs中使用mongodb" title="在nodejs中使用mongodb"></a>在nodejs中使用mongodb</h2><p>  因为主要是用nodejs进行开发，所以就介绍在nodejs平台使用mongodb了。</p>
+<p>  首先需要通过npm安装mongodb</p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">npm install mongodb</div></pre></td></tr></table></figure>
+<p>  这个是官方提供的库，我们可以使用对其封装过之后的orm方便开发，在查阅资料之后，我选择了<a href="https://github.com/amark/mongous" target="_blank" rel="external">mongous</a>,语法简洁，容易使用。</p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">npm install mongojs</div></pre></td></tr></table></figure>
+<p>  新建index.js文件：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div></pre></td><td class="code"><pre><div class="line">const mongojs = require(&apos;mongojs&apos;);</div><div class="line">const JSONStream = require(&apos;JSONStream&apos;) </div><div class="line">const db = mongojs(&apos;logging&apos;, [&apos;mycollection&apos;]) // logging 是数据库名 </div><div class="line">// save data </div><div class="line">db.mycollection.save(&#123; </div><div class="line">  name: &apos;logging&apos;, </div><div class="line">  age:24 </div><div class="line">&#125;) </div><div class="line">//get </div><div class="line">db.mycollection.find((err,docs)=&gt; &#123; </div><div class="line">  console.log(docs) </div><div class="line">&#125;)</div><div class="line"></div><div class="line">//通过id查找数据 并通过流输出到控制台 </div><div class="line">db.mycollection.find(&#123;_id: mongojs.ObjectId(&apos;58e9ebfa53d28433350c70e7&apos;)&#125;).pipe(JSONStream.stringify()).pipe(process.stdout) </div><div class="line"></div><div class="line">//增加条件查询语句 </div><div class="line">db.mycollection.find(&#123;&quot;age&quot; : &#123;$gt : 100&#125;&#125;) </div><div class="line"></div><div class="line">// update </div><div class="line">db.mycollection.findAndModify(&#123; </div><div class="line">  query: &#123; name: &apos;logging&apos; &#125;, </div><div class="line">  update: &#123; $set: &#123; age: 23 &#125;&#125;,  </div><div class="line">  new: true </div><div class="line">&#125;, function (err, doc, lastErrorObject) &#123; </div><div class="line">&#125;) </div><div class="line"></div><div class="line">// delete </div><div class="line">db.mycollection.remove(&#123;age:23&#125;)</div></pre></td></tr></table></figure>
+<p>  执行<strong>node index.js </strong>可以看到输出结果</p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a><a href="#参考" title="参考"></a>参考</h2><p><a href="https://docs.mongodb.com/manual" target="_blank" rel="external">mongodb 文档</a><br><a href="http://www.runoob.com/mongodb/mongodb-tutorial.html" target="_blank" rel="external">mongodb 教程</a></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/node-数据库/" rel="tag"># node 数据库</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/04/07/个人博客建立～/" rel="next" title="个人博客建立～">
+                <i class="fa fa-chevron-left"></i> 个人博客建立～
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/05/15/es6-新特性之set-map/" rel="prev" title="es6 新特性之set/map">
+                es6 新特性之set/map <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Inhaltsverzeichnis
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Übersicht
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Logging</p>
+              <p class="site-description motion-element" itemprop="description">讲道理此处应有描述，可是我不讲道理。</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-name">Artikel</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-name">Tags</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+
+          <div class="links-of-author motion-element">
+            
+          </div>
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#mongodb-简介"><span class="nav-number">1.</span> <span class="nav-text">mongodb 简介</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#mongodb-安装"><span class="nav-number">2.</span> <span class="nav-text">mongodb 安装</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#mongodb-服务控制"><span class="nav-number">3.</span> <span class="nav-text">mongodb 服务控制</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#mongodb-常用操作"><span class="nav-number">4.</span> <span class="nav-text">mongodb 常用操作</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#在nodejs中使用mongodb"><span class="nav-number">5.</span> <span class="nav-text">在nodejs中使用mongodb</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考"><span class="nav-number">6.</span> <span class="nav-text">参考</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Logging</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Erstellt mit  <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.3</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
