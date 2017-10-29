@@ -63,12 +63,12 @@ tags: react 前端
       </div>
     }
   ```
-  ![添加了四个输入框](https://raw.githubusercontent.com/Renascence/Renascence.github.io/master/source/_posts/img/before.png)
+  ![添加了四个输入框](https://raw.githubusercontent.com/Renascence/Renascence.github.io/hexo/source/_posts/img/before.png)
 
   主要功能就这么实现了，逻辑堪称完美。
   直到我点击了一下删除按钮。。。发现我删除的永远是最后一个元素（图为点击第二个输入框后删除按钮出现的效果）
 
-  ![点击第二个输入框后面的删除按钮后](https://raw.githubusercontent.com/Renascence/Renascence.github.io/master/source/_posts/img/after.png)
+  ![点击第二个输入框后面的删除按钮后](https://raw.githubusercontent.com/Renascence/Renascence.github.io/hexo/source/_posts/img/after.png)
   
   第一反应是我删除的index删错了，但是反复检查之后，发现逻辑并没有问题，于是研究了一番。
   BTW：当时是用value替换了defaultvalue，让input变为受控组件，解决了这个问题。
