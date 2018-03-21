@@ -12,13 +12,13 @@ tags: react
 
 这是webpack官方用来分割代码的插件，在现有项目中使用这个插件需要如下几步操作：
 
-1. 安装（废话。。。）
+- 安装（废话。。。）
 
 ```
   npm i bundle-loader --save
 ```
 
-2. 在webpack中配置插件
+- 在webpack中配置插件
 
 ```
   module: {
@@ -47,7 +47,7 @@ tags: react
   },
 ```
 
-3. 插件的使用
+- 插件的使用
 
 
 我们先需要定义一个组件
@@ -113,3 +113,4 @@ import Bundle from './components/bundle/Bundle';
   npm run build 
 ```
 就可以看到代码成功被分割的情况啦～
+  ![分割代码后打包效果](https://raw.githubusercontent.com/Renascence/Renascence.github.io/hexo/source/_posts/img/codeSplit.png)
