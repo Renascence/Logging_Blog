@@ -133,11 +133,13 @@ Promise 解决了es5中回调地狱的问题，让代码逻辑变得更加直观
 
 ```
   const promise = new Promise((resolve,reject)=> {
-    if(success) {
-      resolve()
-    } else {
-      reject()
-    }
+    setTimeout(() => { // 创建异步任务
+      if(data) {
+        resolve(data) // 正常返回数据
+      } else {
+        reject(err) // 异常
+      }
+    }, 1000);
   })
 
   // 指定回调函数
@@ -163,10 +165,44 @@ Promise 解决了es5中回调地狱的问题，让代码逻辑变得更加直观
 
   // 如果有多个互不依赖的请求可以使用promise.all提升效率
   const [res1,res2,res3] = await Promise.all([getData1,getData2,getData3])
+```
 
-``` 
+## 5. fetch
 
-## 5. const 和 let
+在过去浏览器发起请求都是ajax,现在可以使用新的api fetch。
+准确来说 fetch 应该属于es7的标准,但是大部分浏览器都已经支持,而且这个特性我使用比较多很方便,所以一起列出来。
+fetch返回的是promise对象,可以直接使用then和catch方法
+
+```
+  // 默认为get 
+  fetch(url)
+  .then((response) => {
+    console.log(response)
+  })
+  .catch((err) => {
+    console.log(err)
+  });
+
+  // 设置post请求参数
+  const option = {
+    method: 'POST',
+    body: {},
+  }
+  fetch(url, option)
+  .then((response) => {
+    console.log(response)
+  })
+  .catch((err) => {
+    console.log(err)
+  });
+```
+
+注意: 
+- Fetch 请求默认是不带 cookie 的，需要设置 fetch(url, {credentials: 'include'})
+- 服务器返回 400，500 错误码时并不会 reject，只有网络错误这些导致请求不能完成时，fetch 才会被 reject。
+
+
+## 6. const 和 let
 
 在es5中，只有函数作用域和全局作用域的概念，es6中新引入了块级作用域的概念。
 ```
