@@ -1,6 +1,6 @@
 ---
 title: 浅析react diff的机制
-date: 2019-08-25 23:15:51
+date: 2019-03-25 21r:15:51
 tags:
 ---
 
@@ -8,11 +8,11 @@ tags:
 
 ## Real DOM：浏览器中真实存在的节点。
 
-![Real DOM](https://raw.githubusercontent.com/Renascence/Renascence.github.io/hexo/source/_posts/img/RealDom.png)
+![Real DOM](https://raw.githubusercontent.com/Renascence/Renascence.github.io/hexo/source/_posts/img/RealDOM.png)
 
 Virtual dom：使用js描述Real DOM的对象。
 
-![Virtual DOM](https://raw.githubusercontent.com/Renascence/Renascence.github.io/hexo/source/_posts/img/VirtualDom.png)
+![Virtual DOM](https://raw.githubusercontent.com/Renascence/Renascence.github.io/hexo/source/_posts/img/VirtualDOM.png)
 
 Virtual dom 转化为 Real DOM：
 
