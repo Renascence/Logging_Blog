@@ -1,0 +1,680 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png?v=5.1.3">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.3" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="http node,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="豆瓣电影这个app我用了很久，但是最近突然改版了，个人觉得ui没有原来好看，刚好豆瓣实验室提供了必须的api，所以打算自己写个项目展示一些电影数据。  豆瓣实验室提供的api很不错，相当一部分的数据都能找到了，但是开发的第一天就遇到了问题————图片盗链。 api返回数据中包含了电影的海报url，当我把img元素的src指向url时，服务器却返回了403。  说实话，403这个报错之前开发我一直没">
+<meta name="keywords" content="http node">
+<meta property="og:type" content="article">
+<meta property="og:title" content="记第一次遇到图片防盗链">
+<meta property="og:url" content="http://yoursite.com/2017/10/13/记第一次遇到图片防盗链/index.html">
+<meta property="og:site_name" content="Logging的博客">
+<meta property="og:description" content="豆瓣电影这个app我用了很久，但是最近突然改版了，个人觉得ui没有原来好看，刚好豆瓣实验室提供了必须的api，所以打算自己写个项目展示一些电影数据。  豆瓣实验室提供的api很不错，相当一部分的数据都能找到了，但是开发的第一天就遇到了问题————图片盗链。 api返回数据中包含了电影的海报url，当我把img元素的src指向url时，服务器却返回了403。  说实话，403这个报错之前开发我一直没">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="https://raw.githubusercontent.com/Renascence/Renascence.github.io/hexo/source/_posts/img/douban403.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/Renascence/Renascence.github.io/hexo/source/_posts/img/referer.png">
+<meta property="og:updated_time" content="2019-08-25T15:14:09.207Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="记第一次遇到图片防盗链">
+<meta name="twitter:description" content="豆瓣电影这个app我用了很久，但是最近突然改版了，个人觉得ui没有原来好看，刚好豆瓣实验室提供了必须的api，所以打算自己写个项目展示一些电影数据。  豆瓣实验室提供的api很不错，相当一部分的数据都能找到了，但是开发的第一天就遇到了问题————图片盗链。 api返回数据中包含了电影的海报url，当我把img元素的src指向url时，服务器却返回了403。  说实话，403这个报错之前开发我一直没">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/Renascence/Renascence.github.io/hexo/source/_posts/img/douban403.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.3',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2017/10/13/记第一次遇到图片防盗链/">
+
+
+
+
+
+  <title>记第一次遇到图片防盗链 | Logging的博客</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="default">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Logging的博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">https://github.com/Renascence</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/10/13/记第一次遇到图片防盗链/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Logging">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Logging的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">记第一次遇到图片防盗链</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-10-13T23:54:05+08:00">
+                2017-10-13
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>豆瓣电影这个app我用了很久，但是最近突然改版了，个人觉得ui没有原来好看，刚好豆瓣实验室提供了必须的api，所以打算自己写个项目展示一些电影数据。</p>
+<hr>
+<p>豆瓣实验室提供的api很不错，相当一部分的数据都能找到了，但是开发的第一天就遇到了问题————图片盗链。</p>
+<p>api返回数据中包含了电影的海报url，当我把img元素的src指向url时，服务器却返回了403。</p>
+<p><img src="https://raw.githubusercontent.com/Renascence/Renascence.github.io/hexo/source/_posts/img/douban403.png" alt="请求图片403错误"></p>
+<p>说实话，403这个报错之前开发我一直没遇到过，正好学习一下。</p>
+<h3 id="http-请求头中的-referer"><a href="#http-请求头中的-referer" class="headerlink" title="http 请求头中的 referer"></a>http 请求头中的 referer</h3><blockquote>
+<p>HTTP参照位址（referer，或HTTP referer）是HTTP表头的一个栏位，用来表示从哪儿连结到目前的网页，採用的格式是URL。换句话说，藉着HTTP参照位址，目前的网页可以检查访客从哪裡而来，这也常被用来对付伪造的跨网站请求。</p>
+</blockquote>
+<p>然后对照我发起请求的时候带的referer</p>
+<p><img src="https://raw.githubusercontent.com/Renascence/Renascence.github.io/hexo/source/_posts/img/referer.png" alt="referer"></p>
+<p>我用webpack开发，端口设置的是7000，所以referer信息显示的是</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Referer:http://localhost:7000/</span><br></pre></td></tr></table></figure>
+<p>找到问题所在了，看上去只要把请求中的referer改掉就行了。然而经过我多次的查阅资料，发现是无法从前端修改referer的，只能换个思路：</p>
+<ol>
+<li><p>搭建node服务器，请求前端请求发给node，由node转发伪造referer。</p>
+</li>
+<li><p>根据api返回的图片url下载到本地访问。</p>
+</li>
+</ol>
+<p>因为目前只打算在ghpages上写一个静态页面，所以选择了第二种解决方案，写了一个<a href="https://github.com/Renascence/movieData/blob/master/src/utils/getImages.js" target="_blank" rel="noopener">脚本</a></p>
+<p>并把这个脚本加到package.json中去</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&quot;start&quot;: &quot;node src/utils/getImages.js &amp;&amp; webpack-dev-server --content-base --inline --hot --open&quot;,</span><br></pre></td></tr></table></figure>
+<p>这样每次开发启动服务都会更新一下本地下载的图片。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/http-node/" rel="tag"># http node</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/08/27/记一次失败的折腾/" rel="next" title="记一次失败的折腾">
+                <i class="fa fa-chevron-left"></i> 记一次失败的折腾
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/11/18/js模块化中的CommonJS规范/" rel="prev" title="js模块化中的CommonJS规范">
+                js模块化中的CommonJS规范 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Logging</p>
+              <p class="site-description motion-element" itemprop="description">讲道理此处应有描述，可是我不讲道理。</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">12</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">6</span>
+                  <span class="site-state-item-name">tags</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+
+          <div class="links-of-author motion-element">
+            
+          </div>
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#http-请求头中的-referer"><span class="nav-number">1.</span> <span class="nav-text">http 请求头中的 referer</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Logging</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.3</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
