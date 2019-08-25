@@ -86,19 +86,19 @@
 <meta property="og:site_name" content="Logging的博客">
 <meta property="og:description" content="一、 基本概念 Real DOM：浏览器中真实存在的节点。 Virtual dom：使用js描述Real DOM的对象。  Virtual dom 转化为 Real DOM：  二、 为什么要使用Virtual DOM  从浏览器的角度来说，js执行肯定没有直接渲染html快才对，那我们为什么需要v-dom呢。先从浏览器的工作原说起：  Repaint（重绘）：元素产生了不影响排版的情况下后对这个">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="https://raw.githubusercontent.com/Renascence/Renascence.github.io/hexo/source/_posts/img/RealDom.png">
-<meta property="og:image" content="https://raw.githubusercontent.com/Renascence/Renascence.github.io/hexo/source/_posts/img/VirtualDom.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/Renascence/Renascence.github.io/hexo/source/_posts/img/RealDOM.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/Renascence/Renascence.github.io/hexo/source/_posts/img/VirtualDOM.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/Renascence/Renascence.github.io/hexo/source/_posts/img/v2r.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/Renascence/Renascence.github.io/hexo/source/_posts/img/browser.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/Renascence/Renascence.github.io/hexo/source/_posts/img/treeDiff.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/Renascence/Renascence.github.io/hexo/source/_posts/img/componentDiff.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/Renascence/Renascence.github.io/hexo/source/_posts/img/domChange.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/Renascence/Renascence.github.io/hexo/source/_posts/img/domDIff.png">
-<meta property="og:updated_time" content="2019-08-25T16:06:39.206Z">
+<meta property="og:updated_time" content="2019-08-25T16:11:30.407Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="浅析react diff的机制">
 <meta name="twitter:description" content="一、 基本概念 Real DOM：浏览器中真实存在的节点。 Virtual dom：使用js描述Real DOM的对象。  Virtual dom 转化为 Real DOM：  二、 为什么要使用Virtual DOM  从浏览器的角度来说，js执行肯定没有直接渲染html快才对，那我们为什么需要v-dom呢。先从浏览器的工作原说起：  Repaint（重绘）：元素产生了不影响排版的情况下后对这个">
-<meta name="twitter:image" content="https://raw.githubusercontent.com/Renascence/Renascence.github.io/hexo/source/_posts/img/RealDom.png">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/Renascence/Renascence.github.io/hexo/source/_posts/img/RealDOM.png">
 
 
 
@@ -270,7 +270,7 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-08-26T00:05:56+08:00">
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-08-26T00:10:41+08:00">
                 2019-08-26
               </time>
             
@@ -309,9 +309,9 @@
 
       
         <p>一、 基本概念</p>
-<h2 id="Real-DOM：浏览器中真实存在的节点。"><a href="#Real-DOM：浏览器中真实存在的节点。" class="headerlink" title="Real DOM：浏览器中真实存在的节点。"></a>Real DOM：浏览器中真实存在的节点。</h2><p><img src="https://raw.githubusercontent.com/Renascence/Renascence.github.io/hexo/source/_posts/img/RealDom.png" alt="Real DOM"></p>
+<h2 id="Real-DOM：浏览器中真实存在的节点。"><a href="#Real-DOM：浏览器中真实存在的节点。" class="headerlink" title="Real DOM：浏览器中真实存在的节点。"></a>Real DOM：浏览器中真实存在的节点。</h2><p><img src="https://raw.githubusercontent.com/Renascence/Renascence.github.io/hexo/source/_posts/img/RealDOM.png" alt="Real DOM"></p>
 <p>Virtual dom：使用js描述Real DOM的对象。</p>
-<p><img src="https://raw.githubusercontent.com/Renascence/Renascence.github.io/hexo/source/_posts/img/VirtualDom.png" alt="Virtual DOM"></p>
+<p><img src="https://raw.githubusercontent.com/Renascence/Renascence.github.io/hexo/source/_posts/img/VirtualDOM.png" alt="Virtual DOM"></p>
 <p>Virtual dom 转化为 Real DOM：</p>
 <p><img src="https://raw.githubusercontent.com/Renascence/Renascence.github.io/hexo/source/_posts/img/v2r.png" alt="Virtual DOM -&gt; Real DOM"></p>
 <h2 id="二、-为什么要使用Virtual-DOM"><a href="#二、-为什么要使用Virtual-DOM" class="headerlink" title="二、 为什么要使用Virtual DOM"></a>二、 为什么要使用Virtual DOM</h2><p>  从浏览器的角度来说，js执行肯定没有直接渲染html快才对，那我们为什么需要v-dom呢。先从浏览器的工作原说起：</p>
