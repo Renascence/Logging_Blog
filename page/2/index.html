@@ -232,6 +232,151 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/05/15/es6-新特性之set-map/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Logging">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Logging的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/05/15/es6-新特性之set-map/" itemprop="url">es6 新特性之set/map</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-05-15T23:31:24+08:00">
+                2017-05-15
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <blockquote>
+<p> 最近一直在使用es6的新特性，但是还没有系统地学习，写博客开始慢慢补漏～  </p>
+</blockquote>
+<h2 id="Set"><a href="#Set" class="headerlink" title="Set"></a><a href="#Set" title="Set"></a>Set</h2><p>  es6提供的一种新数据结构。</p>
+<p>  和数组类似，但是中间不允许存在重复的值。</p>
+<p>  区别于数组的push，向set集合中添加元素需要使用add方法。<br>  获取长度使用set.size()函数，而不是length。<br>  set.has()函数用于判断集合中是否含有某一个元素。</p>
+<ul>
+<li><p>数组和集合的转化：  </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">let array = Array.from(sets);</span><br></pre></td></tr></table></figure>
+<p>集合没有特定的key，所以访问‘键’和‘值’获取到的数据是一致的。</p>
+</li>
+</ul>
+<h2 id="Map"><a href="#Map" class="headerlink" title="Map"></a><a href="#Map" title="Map"></a>Map</h2><p>  和object类似，但是传入的key不需要是string类型。</p>
+<ul>
+<li><p>基本方法：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">size    // 返回成员总数</span><br><span class="line">set(key,val)</span><br><span class="line">get(key)</span><br><span class="line">hsa(key)     </span><br><span class="line">delete(key)  </span><br><span class="line">clear  // 清空map</span><br></pre></td></tr></table></figure>
+<p><strong>只有对同一个对象的引用，Map结构才将其视为同一个键。</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">var map = new Map();</span><br><span class="line">map.set([&apos;a&apos;], 555);</span><br><span class="line">map.get([&apos;a&apos;]) // undefined</span><br></pre></td></tr></table></figure>
+<p><strong>同样的值的两个实例，在Map结构中被视为两个键。</strong></p>
+</li>
+<li><p>Map转为数组</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">let arr = [...myMap]</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>遍历map</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">for (let [k,v] of strMap) &#123;</span><br><span class="line">  // do something with key &amp;val</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/04/25/初试MongoDB/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -607,7 +752,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">12</span>
+                  <span class="site-state-item-count">13</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -659,7 +804,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>
