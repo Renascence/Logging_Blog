@@ -232,6 +232,161 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/04/30/聊聊react中常用的hooks方法/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Logging">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Logging的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2020/04/30/聊聊react中常用的hooks方法/" itemprop="url">聊聊react中常用的hooks方法</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-04-30T15:23:00+08:00">
+                2020-04-30
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>使用react 16也有一年多了，总结一下其中一些常用的hooks方法。<br>hooks使用在函数组件中，让函数组件也有了状态</p>
+<h2 id="useState"><a href="#useState" class="headerlink" title="useState"></a>useState</h2><blockquote>
+<p>useState用法——声明、读取、使用（修改）</p>
+</blockquote>
+<pre><code>const [ count , setCount ] = useState(0);
+//ES6的数组解构
+//接受状态初始值，返回数组（0：是数组状态值，1是改变函数的方法） 
+let _useState = userState(0);
+let count = _useState[0]
+let setCount = _useState[1]
+</code></pre><blockquote>
+<p>多状态声明注意事项</p>
+<blockquote>
+<p>useState 只是赋值，并没有绑定key值，如何让React保证可以找到对应的渲染的状态呢？</p>
+<p>答： 根据useState出现的顺序进行确定，不能出现在条件判断语句中，因为它必须要有完全一致的渲染顺序。</p>
+</blockquote>
+</blockquote>
+<h2 id="useEffect"><a href="#useEffect" class="headerlink" title="useEffect"></a>useEffect</h2><blockquote>
+<p>生命周期函数的作用</p>
+<blockquote>
+<p>答：和函数业务主逻辑关联不大，实现在特定时间或事件中执行的动作，比如Ajax请求，登录或取消登录的时间监听</p>
+</blockquote>
+</blockquote>
+<blockquote>
+<p><code>useEffect</code>两个注意点</p>
+<blockquote>
+<ol>
+<li>React首次渲染和之后的每次渲染都会调用一遍useEffect函数，而之前用的命周期函数分别表示首次渲染(componentDidMonut)和更新导致的重新渲染(componentDidUpdate)都是区分开来的。</li>
+<li>useEffect中定义的函数的执行不会阻碍浏览器更新视图异步执行，而componentDidMonut和componentDidUpdate中的代码都是同步执行的。有好处也有坏处，比如根据页面的大小绘制当前弹出窗口大小，如果时异步的就不好操作了。</li>
+</ol>
+</blockquote>
+</blockquote>
+<h2 id="useContext"><a href="#useContext" class="headerlink" title="useContext"></a>useContext</h2><p>useContext可以帮助实现跨越组件层级直接传递变量，实现数据的共享。<br>useContext和redux的作用不同，一个解决组件值传递，一个是应用中统一管理状态问题。<br>useContext + useReducer 可以实现Redux作用<br>Context的作用就是对包含在其中的组件实现全局数据共享的作用    </p>
+<h2 id="useReducer"><a href="#useReducer" class="headerlink" title="useReducer"></a>useReducer</h2><p>useReducer可以让代码更具有可读性和可维护性<br>Reducer其实就是一个函数，这个函数接受两个参数，一个是状态，另一个用来控制业务逻辑的判断参数，控制状态的作用</p>
+<h2 id="useMemo"><a href="#useMemo" class="headerlink" title="useMemo"></a>useMemo</h2><p>useMemo主要用来解决React Hooks产生的无用渲染的性能问题。在使用function的形式来声明组件，失去了shouldComponentUpdate这个生命周期，决定组件是否更新。已不再区分mount和update两个状态。</p>
+<h2 id="useCallback"><a href="#useCallback" class="headerlink" title="useCallback"></a>useCallback</h2><p>useCallback是为了缓存方法 useMemo是为了缓存变量,避免组件重复执行时，申明多次函数/变量，减小开销。</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/03/28/聊聊Antd-Form表单/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1509,135 +1664,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/08/27/记一次失败的折腾/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Logging">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Logging的博客">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/08/27/记一次失败的折腾/" itemprop="url">记一次失败的折腾</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-08-27T18:22:42+08:00">
-                2017-08-27
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>  最近突然闲下来，打算折腾折腾linux桌面玩玩。<br>  嗯，然后由于开启了compiz的部分特性产生冲突，然后图形桌面变得不稳定。</p>
-<p>  <strong>小事重启，大事重装</strong></p>
-<p>  于是我重装了一下系统。</p>
-<p>  先备份数据。我把硬盘上的部分数据，甚至包括.bashrc和编辑器的快捷键代码文件都备份下来了。</p>
-<p>  当我看到我的博客项目的时候，我稍微想了一下， ————都托管在github上呢，就不备份了吧。</p>
-<p>  然而，我完全没有意识到，github上托管的博客是hexo从markdown生成的html。</p>
-<p>  ————是的，现在你看到的博客就是我html转成markdown然后由hexo再次生成的html。</p>
-<p>  心累.jpg</p>
-<p>  吃一堑长一智，所以这次在github上多开了一个分支，来保存markdown文件。</p>
-<p>  所以我现在把这件事记录下来，提醒自己：折腾有风险，装机需谨慎。</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1688,7 +1714,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">15</span>
+                  <span class="site-state-item-count">16</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -1701,7 +1727,7 @@
               
               <div class="site-state-item site-state-tags">
                 
-                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-count">7</span>
                   <span class="site-state-item-name">tags</span>
                 
               </div>

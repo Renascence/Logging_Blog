@@ -79,26 +79,17 @@
 
 
 
-<meta name="description" content="一、 基本概念 Real DOM：浏览器中真实存在的节点。 Virtual dom：使用js描述Real DOM的对象。  Virtual dom 转化为 Real DOM：  二、 为什么要使用Virtual DOM  从浏览器的角度来说，js执行肯定没有直接渲染html快才对，那我们为什么需要v-dom呢。先从浏览器的工作原说起：  Repaint（重绘）：元素产生了不影响排版的情况下后对这个">
+<meta name="description" content="使用react 16也有一年多了，总结一下其中一些常用的hooks方法。hooks使用在函数组件中，让函数组件也有了状态 useState useState用法——声明、读取、使用（修改）  const [ count , setCount ] = useState(0); //ES6的数组解构 //接受状态初始值，返回数组（0：是数组状态值，1是改变函数的方法）  let _useState =">
 <meta property="og:type" content="article">
-<meta property="og:title" content="浅析react diff的机制">
-<meta property="og:url" content="http://yoursite.com/2019/03/25/浅析react-diff的机制/index.html">
+<meta property="og:title" content="聊聊react中常用的hooks方法">
+<meta property="og:url" content="http://yoursite.com/2020/04/30/聊聊react中常用的hooks方法/index.html">
 <meta property="og:site_name" content="Logging的博客">
-<meta property="og:description" content="一、 基本概念 Real DOM：浏览器中真实存在的节点。 Virtual dom：使用js描述Real DOM的对象。  Virtual dom 转化为 Real DOM：  二、 为什么要使用Virtual DOM  从浏览器的角度来说，js执行肯定没有直接渲染html快才对，那我们为什么需要v-dom呢。先从浏览器的工作原说起：  Repaint（重绘）：元素产生了不影响排版的情况下后对这个">
+<meta property="og:description" content="使用react 16也有一年多了，总结一下其中一些常用的hooks方法。hooks使用在函数组件中，让函数组件也有了状态 useState useState用法——声明、读取、使用（修改）  const [ count , setCount ] = useState(0); //ES6的数组解构 //接受状态初始值，返回数组（0：是数组状态值，1是改变函数的方法）  let _useState =">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="https://raw.githubusercontent.com/Renascence/Renascence.github.io/hexo/source/_posts/img/RealDOM.png">
-<meta property="og:image" content="https://raw.githubusercontent.com/Renascence/Renascence.github.io/hexo/source/_posts/img/VirtualDOM.png">
-<meta property="og:image" content="https://raw.githubusercontent.com/Renascence/Renascence.github.io/hexo/source/_posts/img/v2r.png">
-<meta property="og:image" content="https://raw.githubusercontent.com/Renascence/Renascence.github.io/hexo/source/_posts/img/browser.png">
-<meta property="og:image" content="https://raw.githubusercontent.com/Renascence/Renascence.github.io/hexo/source/_posts/img/treeDiff.png">
-<meta property="og:image" content="https://raw.githubusercontent.com/Renascence/Renascence.github.io/hexo/source/_posts/img/componentDiff.png">
-<meta property="og:image" content="https://raw.githubusercontent.com/Renascence/Renascence.github.io/hexo/source/_posts/img/domChange.png">
-<meta property="og:image" content="https://raw.githubusercontent.com/Renascence/Renascence.github.io/hexo/source/_posts/img/domDIff.png">
-<meta property="og:updated_time" content="2019-08-27T15:18:23.975Z">
+<meta property="og:updated_time" content="2020-04-30T14:52:37.898Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="浅析react diff的机制">
-<meta name="twitter:description" content="一、 基本概念 Real DOM：浏览器中真实存在的节点。 Virtual dom：使用js描述Real DOM的对象。  Virtual dom 转化为 Real DOM：  二、 为什么要使用Virtual DOM  从浏览器的角度来说，js执行肯定没有直接渲染html快才对，那我们为什么需要v-dom呢。先从浏览器的工作原说起：  Repaint（重绘）：元素产生了不影响排版的情况下后对这个">
-<meta name="twitter:image" content="https://raw.githubusercontent.com/Renascence/Renascence.github.io/hexo/source/_posts/img/RealDOM.png">
+<meta name="twitter:title" content="聊聊react中常用的hooks方法">
+<meta name="twitter:description" content="使用react 16也有一年多了，总结一下其中一些常用的hooks方法。hooks使用在函数组件中，让函数组件也有了状态 useState useState用法——声明、读取、使用（修改）  const [ count , setCount ] = useState(0); //ES6的数组解构 //接受状态初始值，返回数组（0：是数组状态值，1是改变函数的方法）  let _useState =">
 
 
 
@@ -128,13 +119,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2019/03/25/浅析react-diff的机制/">
+  <link rel="canonical" href="http://yoursite.com/2020/04/30/聊聊react中常用的hooks方法/">
 
 
 
 
 
-  <title>浅析react diff的机制 | Logging的博客</title>
+  <title>聊聊react中常用的hooks方法 | Logging的博客</title>
   
 
 
@@ -241,7 +232,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/25/浅析react-diff的机制/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/04/30/聊聊react中常用的hooks方法/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Logging">
@@ -258,7 +249,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">浅析react diff的机制</h1>
+          <h1 class="post-title" itemprop="name headline">聊聊react中常用的hooks方法</h1>
         
 
         <div class="post-meta">
@@ -270,8 +261,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-03-25T21:15:51+08:00">
-                2019-03-25
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-04-30T15:23:00+08:00">
+                2020-04-30
               </time>
             
 
@@ -308,39 +299,42 @@
       
 
       
-        <p>一、 基本概念</p>
-<h2 id="Real-DOM：浏览器中真实存在的节点。"><a href="#Real-DOM：浏览器中真实存在的节点。" class="headerlink" title="Real DOM：浏览器中真实存在的节点。"></a>Real DOM：浏览器中真实存在的节点。</h2><p><img src="https://raw.githubusercontent.com/Renascence/Renascence.github.io/hexo/source/_posts/img/RealDOM.png" alt="Real DOM"></p>
-<p>Virtual dom：使用js描述Real DOM的对象。</p>
-<p><img src="https://raw.githubusercontent.com/Renascence/Renascence.github.io/hexo/source/_posts/img/VirtualDOM.png" alt="Virtual DOM"></p>
-<p>Virtual dom 转化为 Real DOM：</p>
-<p><img src="https://raw.githubusercontent.com/Renascence/Renascence.github.io/hexo/source/_posts/img/v2r.png" alt="Virtual DOM -&gt; Real DOM"></p>
-<h2 id="二、-为什么要使用Virtual-DOM"><a href="#二、-为什么要使用Virtual-DOM" class="headerlink" title="二、 为什么要使用Virtual DOM"></a>二、 为什么要使用Virtual DOM</h2><p>  从浏览器的角度来说，js执行肯定没有直接渲染html快才对，那我们为什么需要v-dom呢。先从浏览器的工作原说起：</p>
-<p><img src="https://raw.githubusercontent.com/Renascence/Renascence.github.io/hexo/source/_posts/img/browser.png" alt="浏览器工作原理"></p>
-<p>Repaint（重绘）：元素产生了不影响排版的情况下后对这个元素进行重新绘制的过程。</p>
-<p>Reflow（重排）：元素产生了对文档树排版有影响的样式变化，对所有受影响的dom节点进行重新排版的过程。</p>
-<p>提高网页性能，就是要降低”重排”和”重绘”的频率和成本，尽量少触发重新渲染。这就是v-dom帮我们完成的事情。<br>（Tips：所以一些对dom操作不多对页面，还是尽量使用html编写，或者对速度有要求的页面可以通过ssr实现效果。）</p>
-<p>浏览器对于重排和重绘的优化：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">div.style.color = &apos;red&apos;;</span><br><span class="line">div.style.marginTop = &apos;10px&apos; // 浏览器会合并执行，只触发一次重绘和重排</span><br></pre></td></tr></table></figure></p>
-<p>浏览器无法优化的情况：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">div.style.color = &apos;red&apos;;</span><br><span class="line">const margin = parseInt(div.style.marginTop); // 无法优化，立即进行一次重绘</span><br><span class="line">div.style.marginTop = &apos;10px&apos;</span><br></pre></td></tr></table></figure></p>
-<p>面对浏览器无法优化的情况，我们就需要v-dom的帮助。</p>
-<h2 id="三、-React-diff策略"><a href="#三、-React-diff策略" class="headerlink" title="三、 React diff策略"></a>三、 React diff策略</h2><ul>
-<li>tree diff：Web UI 中 DOM 节点跨层级的移动操作特别少，可以忽略不计。</li>
-</ul>
-<p><img src="https://raw.githubusercontent.com/Renascence/Renascence.github.io/hexo/source/_posts/img/treeDiff.png" alt="tree diff"></p>
-<ul>
-<li>component diff：拥有相同类的两个组件将会生成相似的树形结构，拥有不同类的两个组件将会生成不同的树形结构</li>
-</ul>
-<p><img src="https://raw.githubusercontent.com/Renascence/Renascence.github.io/hexo/source/_posts/img/componentDiff.png" alt="component diff"></p>
-<ul>
-<li><p>element diff：对于同一层级的一组子节点，它们可以通过唯一 id 进行区分。</p>
-<ul>
-<li>INSERT_MARKUP，新的 component 类型不在老集合里， 即是全新的节点，需要对新节点执行插入操作。 </li>
-<li>MOVE_EXISTING，在老集合有新 component 类型，且 element 是可更新的类型，generateComponentChildren 已调用 receiveComponent，这种情况下 prevChild=nextChild，就需要做移动操作，可以复用以前的 DOM 节点。 </li>
-<li>REMOVE_NODE，老 component 类型，在新集合里也有，但对应的 element 不同则不能直接复用和更新，需要执行删除操作，或者老 component 不在新集合里的，也需要执行删除操作。</li>
-</ul>
-</li>
-</ul>
-<p><img src="https://raw.githubusercontent.com/Renascence/Renascence.github.io/hexo/source/_posts/img/domChange.png" alt="domChange"></p>
-<p><img src="https://raw.githubusercontent.com/Renascence/Renascence.github.io/hexo/source/_posts/img/domDIff.png" alt="domDIff"></p>
+        <p>使用react 16也有一年多了，总结一下其中一些常用的hooks方法。<br>hooks使用在函数组件中，让函数组件也有了状态</p>
+<h2 id="useState"><a href="#useState" class="headerlink" title="useState"></a>useState</h2><blockquote>
+<p>useState用法——声明、读取、使用（修改）</p>
+</blockquote>
+<pre><code>const [ count , setCount ] = useState(0);
+//ES6的数组解构
+//接受状态初始值，返回数组（0：是数组状态值，1是改变函数的方法） 
+let _useState = userState(0);
+let count = _useState[0]
+let setCount = _useState[1]
+</code></pre><blockquote>
+<p>多状态声明注意事项</p>
+<blockquote>
+<p>useState 只是赋值，并没有绑定key值，如何让React保证可以找到对应的渲染的状态呢？</p>
+<p>答： 根据useState出现的顺序进行确定，不能出现在条件判断语句中，因为它必须要有完全一致的渲染顺序。</p>
+</blockquote>
+</blockquote>
+<h2 id="useEffect"><a href="#useEffect" class="headerlink" title="useEffect"></a>useEffect</h2><blockquote>
+<p>生命周期函数的作用</p>
+<blockquote>
+<p>答：和函数业务主逻辑关联不大，实现在特定时间或事件中执行的动作，比如Ajax请求，登录或取消登录的时间监听</p>
+</blockquote>
+</blockquote>
+<blockquote>
+<p><code>useEffect</code>两个注意点</p>
+<blockquote>
+<ol>
+<li>React首次渲染和之后的每次渲染都会调用一遍useEffect函数，而之前用的命周期函数分别表示首次渲染(componentDidMonut)和更新导致的重新渲染(componentDidUpdate)都是区分开来的。</li>
+<li>useEffect中定义的函数的执行不会阻碍浏览器更新视图异步执行，而componentDidMonut和componentDidUpdate中的代码都是同步执行的。有好处也有坏处，比如根据页面的大小绘制当前弹出窗口大小，如果时异步的就不好操作了。</li>
+</ol>
+</blockquote>
+</blockquote>
+<h2 id="useContext"><a href="#useContext" class="headerlink" title="useContext"></a>useContext</h2><p>useContext可以帮助实现跨越组件层级直接传递变量，实现数据的共享。<br>useContext和redux的作用不同，一个解决组件值传递，一个是应用中统一管理状态问题。<br>useContext + useReducer 可以实现Redux作用<br>Context的作用就是对包含在其中的组件实现全局数据共享的作用    </p>
+<h2 id="useReducer"><a href="#useReducer" class="headerlink" title="useReducer"></a>useReducer</h2><p>useReducer可以让代码更具有可读性和可维护性<br>Reducer其实就是一个函数，这个函数接受两个参数，一个是状态，另一个用来控制业务逻辑的判断参数，控制状态的作用</p>
+<h2 id="useMemo"><a href="#useMemo" class="headerlink" title="useMemo"></a>useMemo</h2><p>useMemo主要用来解决React Hooks产生的无用渲染的性能问题。在使用function的形式来声明组件，失去了shouldComponentUpdate这个生命周期，决定组件是否更新。已不再区分mount和update两个状态。</p>
+<h2 id="useCallback"><a href="#useCallback" class="headerlink" title="useCallback"></a>useCallback</h2><p>useCallback是为了缓存方法 useMemo是为了缓存变量,避免组件重复执行时，申明多次函数/变量，减小开销。</p>
 
       
     </div>
@@ -365,8 +359,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/03/10/react-router-v4-code-split/" rel="next" title="react-router v4 code split">
-                <i class="fa fa-chevron-left"></i> react-router v4 code split
+              <a href="/2020/03/28/聊聊Antd-Form表单/" rel="next" title="聊聊Antd Form表单">
+                <i class="fa fa-chevron-left"></i> 聊聊Antd Form表单
               </a>
             
           </div>
@@ -374,10 +368,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2020/01/04/聊聊前端埋点的实现/" rel="prev" title="聊聊前端埋点的实现">
-                聊聊前端埋点的实现 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -500,7 +490,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Real-DOM：浏览器中真实存在的节点。"><span class="nav-number">1.</span> <span class="nav-text">Real DOM：浏览器中真实存在的节点。</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二、-为什么要使用Virtual-DOM"><span class="nav-number">2.</span> <span class="nav-text">二、 为什么要使用Virtual DOM</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#三、-React-diff策略"><span class="nav-number">3.</span> <span class="nav-text">三、 React diff策略</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#useState"><span class="nav-number">1.</span> <span class="nav-text">useState</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#useEffect"><span class="nav-number">2.</span> <span class="nav-text">useEffect</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#useContext"><span class="nav-number">3.</span> <span class="nav-text">useContext</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#useReducer"><span class="nav-number">4.</span> <span class="nav-text">useReducer</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#useMemo"><span class="nav-number">5.</span> <span class="nav-text">useMemo</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#useCallback"><span class="nav-number">6.</span> <span class="nav-text">useCallback</span></a></li></ol></div>
             
 
           </div>
