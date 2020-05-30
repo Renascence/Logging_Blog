@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="javascript,">
+  <meta name="keywords" content="less,">
 
 
 
@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="说起js的模块化，现在很方便的联想到require/import等方式，然而最初js是没有模块这个概念的，不同js文件之间的相互引用依赖于在html中通过 script 标签引入文件，才能相互使用其中的方法。后来随着技术发展，缺少模块化的js使用实在不便，于是模块化规范诞生了。 CommonJS  CommonJS定义了js模块之间相互引用的规范（主要是非浏览器环境中，node.js采用的就是此规">
-<meta name="keywords" content="javascript">
+<meta name="description" content="Sass和Less都属于Css预处理器，但是说来惭愧，使用了这么久用的最多的特性只有他们的嵌套，变量之类的都比较少用。 正好最近我在开发公司内部使用的组件，有些组件会根据传入的参数不同，显示不同的颜色。 12345...&amp;lt;Notice type=&amp;apos;success&amp;apos;&amp;gt; // 展示为绿色&amp;lt;Notice type=&amp;apos;warn&amp;apos;&amp;gt; // 展示">
+<meta name="keywords" content="less">
 <meta property="og:type" content="article">
-<meta property="og:title" content="js模块化中的CommonJS规范">
-<meta property="og:url" content="http://yoursite.com/2017/11/18/js模块化中的CommonJS规范/index.html">
+<meta property="og:title" content="Less知识复习">
+<meta property="og:url" content="http://yoursite.com/2020/05/29/less知识复习/index.html">
 <meta property="og:site_name" content="Logging的博客">
-<meta property="og:description" content="说起js的模块化，现在很方便的联想到require/import等方式，然而最初js是没有模块这个概念的，不同js文件之间的相互引用依赖于在html中通过 script 标签引入文件，才能相互使用其中的方法。后来随着技术发展，缺少模块化的js使用实在不便，于是模块化规范诞生了。 CommonJS  CommonJS定义了js模块之间相互引用的规范（主要是非浏览器环境中，node.js采用的就是此规">
+<meta property="og:description" content="Sass和Less都属于Css预处理器，但是说来惭愧，使用了这么久用的最多的特性只有他们的嵌套，变量之类的都比较少用。 正好最近我在开发公司内部使用的组件，有些组件会根据传入的参数不同，显示不同的颜色。 12345...&amp;lt;Notice type=&amp;apos;success&amp;apos;&amp;gt; // 展示为绿色&amp;lt;Notice type=&amp;apos;warn&amp;apos;&amp;gt; // 展示">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-08-25T16:10:41.789Z">
+<meta property="og:updated_time" content="2020-05-30T06:14:16.530Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="js模块化中的CommonJS规范">
-<meta name="twitter:description" content="说起js的模块化，现在很方便的联想到require/import等方式，然而最初js是没有模块这个概念的，不同js文件之间的相互引用依赖于在html中通过 script 标签引入文件，才能相互使用其中的方法。后来随着技术发展，缺少模块化的js使用实在不便，于是模块化规范诞生了。 CommonJS  CommonJS定义了js模块之间相互引用的规范（主要是非浏览器环境中，node.js采用的就是此规">
+<meta name="twitter:title" content="Less知识复习">
+<meta name="twitter:description" content="Sass和Less都属于Css预处理器，但是说来惭愧，使用了这么久用的最多的特性只有他们的嵌套，变量之类的都比较少用。 正好最近我在开发公司内部使用的组件，有些组件会根据传入的参数不同，显示不同的颜色。 12345...&amp;lt;Notice type=&amp;apos;success&amp;apos;&amp;gt; // 展示为绿色&amp;lt;Notice type=&amp;apos;warn&amp;apos;&amp;gt; // 展示">
 
 
 
@@ -120,13 +120,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2017/11/18/js模块化中的CommonJS规范/">
+  <link rel="canonical" href="http://yoursite.com/2020/05/29/less知识复习/">
 
 
 
 
 
-  <title>js模块化中的CommonJS规范 | Logging的博客</title>
+  <title>Less知识复习 | Logging的博客</title>
   
 
 
@@ -233,7 +233,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/11/18/js模块化中的CommonJS规范/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/05/29/less知识复习/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Logging">
@@ -250,7 +250,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">js模块化中的CommonJS规范</h1>
+          <h1 class="post-title" itemprop="name headline">Less知识复习</h1>
         
 
         <div class="post-meta">
@@ -262,8 +262,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-11-18T22:42:25+08:00">
-                2017-11-18
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-05-29T10:44:39+08:00">
+                2020-05-29
               </time>
             
 
@@ -300,23 +300,18 @@
       
 
       
-        <p>说起js的模块化，现在很方便的联想到require/import等方式，然而最初js是没有模块这个概念的，不同js文件之间的相互引用依赖于在html中通过 script 标签引入文件，才能相互使用其中的方法。后来随着技术发展，缺少模块化的js使用实在不便，于是模块化规范诞生了。</p>
-<h3 id="CommonJS"><a href="#CommonJS" class="headerlink" title="CommonJS"></a>CommonJS</h3><p>  CommonJS定义了js模块之间相互引用的规范（主要是非浏览器环境中，node.js采用的就是此规范）。CommonJS规定每个模块内部，module变量代表当前模块。这个变量是一个对象，它的exports属性（即module.exports）是对外的接口。加载某个模块，其实是加载该模块的module.exports属性。</p>
-<p>  CommonJS 加载模块是同步的，只有加载完成才能执行后面的操作。像Node.js依赖的模块基本都是存在硬盘上，加载起来比较快，不用考虑异步加载的方式，所以CommonJS规范比较适用。</p>
-<p>  CommonJS模块导入导出使用 module.exports 和 require 方法，经过包装后的模块相当于<br>  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">function(exports, require, module, __filename, __dirname)&#123;</span><br><span class="line">  // code</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>  可以看出，经过以上的包装方式，所有在文件内部声明的变量如果没有被放在 exports 对象中，其他文件是无法获取到该变量的，如果想获取该变量，需要通过如下方式声明一个全局变量：<br>  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">global.attr = true;</span><br></pre></td></tr></table></figure></p>
-<p>  所有模块都是Module的实例。module具有以下基本属性</p>
-<ul>
-<li>module.id 模块的识别符，通常是带有绝对路径的模块文件名。</li>
-<li>module.filename 模块的文件名，带有绝对路径。</li>
-<li>module.loaded 返回一个布尔值，表示模块是否已经完成加载。</li>
-<li>module.parent 返回一个对象，表示调用该模块的模块。</li>
-<li>module.children 返回一个数组，表示该模块要用到的其他模块。</li>
-<li><p>module.exports 表示模块对外输出的值。</p>
-<p>// TODO 突然想起之前公司有个老司机提出过‘两个模块相互引用会不会死锁’的问题，带我研究一番回来继续填坑。</p>
-</li>
-</ul>
-
+        <p>Sass和Less都属于Css预处理器，但是说来惭愧，使用了这么久用的最多的特性只有他们的嵌套，变量之类的都比较少用。</p>
+<p>正好最近我在开发公司内部使用的组件，有些组件会根据传入的参数不同，显示不同的颜色。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">...</span><br><span class="line"></span><br><span class="line">&lt;Notice type=&apos;success&apos;&gt; // 展示为绿色</span><br><span class="line">&lt;Notice type=&apos;warn&apos;&gt; // 展示为橙色</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+<p>那么组件内部实现应该类似于这样</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">// Notice.js</span><br><span class="line">const Notice = (&#123;type&#125;) =&gt; &#123;</span><br><span class="line">  return &lt;div classname=`notice-$&#123;type&#125;`&gt;</span><br><span class="line">  ...</span><br><span class="line">  &lt;/div&gt;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>接着开始写less文件,希望最终的生成结果应该是这样：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">.notice-success &#123;</span><br><span class="line">  color: green</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">.notice-warn &#123;</span><br><span class="line">  color: red</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>然后去温习一遍less变量和遍历的使用：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">// 官方文档</span><br><span class="line">.generate-columns(4);</span><br><span class="line"></span><br><span class="line">.generate-columns(@n, @i: 1) when (@i =&lt; @n) &#123;</span><br><span class="line">  .column-@&#123;i&#125; &#123;</span><br><span class="line">    width: (@i * 100% / @n);</span><br><span class="line">  &#125;</span><br><span class="line">  .generate-columns(@n, (@i + 1));</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// 生成的css</span><br><span class="line">.column-1 &#123;</span><br><span class="line">  width: 25%;</span><br><span class="line">&#125;</span><br><span class="line">.column-2 &#123;</span><br><span class="line">  width: 50%;</span><br><span class="line">&#125;</span><br><span class="line">.column-3 &#123;</span><br><span class="line">  width: 75%;</span><br><span class="line">&#125;</span><br><span class="line">.column-4 &#123;</span><br><span class="line">  width: 100%;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>然后着手开发：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">// 定义变量：</span><br><span class="line">@types: warn, info, success, error;</span><br><span class="line">@backgroudColors: #fff5e6, #f0f5ff, #effae4, #ffeae6;</span><br><span class="line"></span><br><span class="line">// 遍历：</span><br><span class="line">.loop(@n, @i: 1) when (@i &lt; @n) &#123;</span><br><span class="line">  .NoticeBar-@&#123;extract(@types, @i)&#125; &#123; // warn：less编译错误</span><br><span class="line">    background-color: extract(@backgroudColors, @i);</span><br><span class="line">    border: 1px solid extract(@borderColors, @i);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  .loop(@n, (@i + 1));</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">.loop(5);</span><br></pre></td></tr></table></figure>
+<p>我反复排查了less的语法，发现文档上类名中使用变量就是这么写的（less版本：3.10），但是编译报错，我在网上查了很久没有查出原因，后来尝试重新定义了一个变量解决，很简单的解决办法，但是也花了很久排查，算踩了一个小坑，记录一下，修改后的代码</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">.loop(@n, @i: 1) when (@i &lt; @n) &#123;</span><br><span class="line">    @name: extract(@types, @i);</span><br><span class="line"></span><br><span class="line">  .NoticeBar-@&#123;name&#125; &#123; // warn：less编译错误</span><br><span class="line">    background-color: extract(@backgroudColors, @i);</span><br><span class="line">    border: 1px solid extract(@borderColors, @i);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  .loop(@n, (@i + 1));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
       
     </div>
     
@@ -333,7 +328,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/javascript/" rel="tag"># javascript</a>
+            <a href="/tags/less/" rel="tag"># less</a>
           
         </div>
       
@@ -346,8 +341,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/10/13/记第一次遇到图片防盗链/" rel="next" title="记第一次遇到图片防盗链">
-                <i class="fa fa-chevron-left"></i> 记第一次遇到图片防盗链
+              <a href="/2020/04/30/聊聊react中常用的hooks方法/" rel="next" title="聊聊react中常用的hooks方法">
+                <i class="fa fa-chevron-left"></i> 聊聊react中常用的hooks方法
               </a>
             
           </div>
@@ -355,10 +350,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2017/12/03/js模块化中的AMD和CMD规范/" rel="prev" title="js模块化中的AMD和CMD规范">
-                js模块化中的AMD和CMD规范 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -408,17 +399,8 @@
       
 
       
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
-            Table of Contents
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
-            Overview
-          </li>
-        </ul>
-      
 
-      <section class="site-overview-wrap sidebar-panel">
+      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -471,22 +453,6 @@
         </div>
       </section>
 
-      
-      <!--noindex-->
-        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-
-            
-              
-            
-
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#CommonJS"><span class="nav-number">1.</span> <span class="nav-text">CommonJS</span></a></li></ol></div>
-            
-
-          </div>
-        </section>
-      <!--/noindex-->
       
 
       

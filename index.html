@@ -232,6 +232,136 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/05/29/less知识复习/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Logging">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Logging的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2020/05/29/less知识复习/" itemprop="url">Less知识复习</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-05-29T10:44:39+08:00">
+                2020-05-29
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>Sass和Less都属于Css预处理器，但是说来惭愧，使用了这么久用的最多的特性只有他们的嵌套，变量之类的都比较少用。</p>
+<p>正好最近我在开发公司内部使用的组件，有些组件会根据传入的参数不同，显示不同的颜色。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">...</span><br><span class="line"></span><br><span class="line">&lt;Notice type=&apos;success&apos;&gt; // 展示为绿色</span><br><span class="line">&lt;Notice type=&apos;warn&apos;&gt; // 展示为橙色</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+<p>那么组件内部实现应该类似于这样</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">// Notice.js</span><br><span class="line">const Notice = (&#123;type&#125;) =&gt; &#123;</span><br><span class="line">  return &lt;div classname=`notice-$&#123;type&#125;`&gt;</span><br><span class="line">  ...</span><br><span class="line">  &lt;/div&gt;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>接着开始写less文件,希望最终的生成结果应该是这样：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">.notice-success &#123;</span><br><span class="line">  color: green</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">.notice-warn &#123;</span><br><span class="line">  color: red</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>然后去温习一遍less变量和遍历的使用：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">// 官方文档</span><br><span class="line">.generate-columns(4);</span><br><span class="line"></span><br><span class="line">.generate-columns(@n, @i: 1) when (@i =&lt; @n) &#123;</span><br><span class="line">  .column-@&#123;i&#125; &#123;</span><br><span class="line">    width: (@i * 100% / @n);</span><br><span class="line">  &#125;</span><br><span class="line">  .generate-columns(@n, (@i + 1));</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// 生成的css</span><br><span class="line">.column-1 &#123;</span><br><span class="line">  width: 25%;</span><br><span class="line">&#125;</span><br><span class="line">.column-2 &#123;</span><br><span class="line">  width: 50%;</span><br><span class="line">&#125;</span><br><span class="line">.column-3 &#123;</span><br><span class="line">  width: 75%;</span><br><span class="line">&#125;</span><br><span class="line">.column-4 &#123;</span><br><span class="line">  width: 100%;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>然后着手开发：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">// 定义变量：</span><br><span class="line">@types: warn, info, success, error;</span><br><span class="line">@backgroudColors: #fff5e6, #f0f5ff, #effae4, #ffeae6;</span><br><span class="line"></span><br><span class="line">// 遍历：</span><br><span class="line">.loop(@n, @i: 1) when (@i &lt; @n) &#123;</span><br><span class="line">  .NoticeBar-@&#123;extract(@types, @i)&#125; &#123; // warn：less编译错误</span><br><span class="line">    background-color: extract(@backgroudColors, @i);</span><br><span class="line">    border: 1px solid extract(@borderColors, @i);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  .loop(@n, (@i + 1));</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">.loop(5);</span><br></pre></td></tr></table></figure>
+<p>我反复排查了less的语法，发现文档上类名中使用变量就是这么写的（less版本：3.10），但是编译报错，我在网上查了很久没有查出原因，后来尝试重新定义了一个变量解决，很简单的解决办法，但是也花了很久排查，算踩了一个小坑，记录一下，修改后的代码</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">.loop(@n, @i: 1) when (@i &lt; @n) &#123;</span><br><span class="line">    @name: extract(@types, @i);</span><br><span class="line"></span><br><span class="line">  .NoticeBar-@&#123;name&#125; &#123; // warn：less编译错误</span><br><span class="line">    background-color: extract(@backgroudColors, @i);</span><br><span class="line">    border: 1px solid extract(@borderColors, @i);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  .loop(@n, (@i + 1));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/04/30/聊聊react中常用的hooks方法/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1521,149 +1651,6 @@ let setCount = _useState[1]
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/10/13/记第一次遇到图片防盗链/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Logging">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Logging的博客">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/10/13/记第一次遇到图片防盗链/" itemprop="url">记第一次遇到图片防盗链</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-10-13T23:54:05+08:00">
-                2017-10-13
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>豆瓣电影这个app我用了很久，但是最近突然改版了，个人觉得ui没有原来好看，刚好豆瓣实验室提供了必须的api，所以打算自己写个项目展示一些电影数据。</p>
-<hr>
-<p>豆瓣实验室提供的api很不错，相当一部分的数据都能找到了，但是开发的第一天就遇到了问题————图片盗链。</p>
-<p>api返回数据中包含了电影的海报url，当我把img元素的src指向url时，服务器却返回了403。</p>
-<p><img src="https://raw.githubusercontent.com/Renascence/Renascence.github.io/hexo/source/_posts/img/douban403.png" alt="请求图片403错误"></p>
-<p>说实话，403这个报错之前开发我一直没遇到过，正好学习一下。</p>
-<h3 id="http-请求头中的-referer"><a href="#http-请求头中的-referer" class="headerlink" title="http 请求头中的 referer"></a>http 请求头中的 referer</h3><blockquote>
-<p>HTTP参照位址（referer，或HTTP referer）是HTTP表头的一个栏位，用来表示从哪儿连结到目前的网页，採用的格式是URL。换句话说，藉着HTTP参照位址，目前的网页可以检查访客从哪裡而来，这也常被用来对付伪造的跨网站请求。</p>
-</blockquote>
-<p>然后对照我发起请求的时候带的referer</p>
-<p><img src="https://raw.githubusercontent.com/Renascence/Renascence.github.io/hexo/source/_posts/img/referer.png" alt="referer"></p>
-<p>我用webpack开发，端口设置的是7000，所以referer信息显示的是</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Referer:http://localhost:7000/</span><br></pre></td></tr></table></figure>
-<p>找到问题所在了，看上去只要把请求中的referer改掉就行了。然而经过我多次的查阅资料，发现是无法从前端修改referer的，只能换个思路：</p>
-<ol>
-<li><p>搭建node服务器，请求前端请求发给node，由node转发伪造referer。</p>
-</li>
-<li><p>根据api返回的图片url下载到本地访问。</p>
-</li>
-</ol>
-<p>因为目前只打算在ghpages上写一个静态页面，所以选择了第二种解决方案，写了一个<a href="https://github.com/Renascence/movieData/blob/master/src/utils/getImages.js" target="_blank" rel="noopener">脚本</a></p>
-<p>并把这个脚本加到package.json中去</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&quot;start&quot;: &quot;node src/utils/getImages.js &amp;&amp; webpack-dev-server --content-base --inline --hot --open&quot;,</span><br></pre></td></tr></table></figure>
-<p>这样每次开发启动服务都会更新一下本地下载的图片。</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1714,7 +1701,7 @@ let setCount = _useState[1]
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">16</span>
+                  <span class="site-state-item-count">17</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -1727,7 +1714,7 @@ let setCount = _useState[1]
               
               <div class="site-state-item site-state-tags">
                 
-                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-count">8</span>
                   <span class="site-state-item-name">tags</span>
                 
               </div>
